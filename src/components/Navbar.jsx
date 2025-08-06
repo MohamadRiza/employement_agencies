@@ -6,7 +6,7 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = React.useState(false);
 
     return (
-        <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between flex-wrap">
+        <nav className="bg-gray-100 shadow-md px-6 py-4 flex items-center justify-between flex-wrap">
             {/* Logo Section */}
             <div className="flex items-center space-x-3">
                 <img
