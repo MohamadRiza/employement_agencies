@@ -26,59 +26,149 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50" aria-label="Main Navigation">
-      <div className="container mx-auto px-6 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center space-x-3">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg"
-            alt="ABC Agencies (PVT) LTD"
-            className="h-10 w-10 object-contain"
-          />
-          <span className="font-bold text-xl text-gray-800">ABC Agencies (PVT) LTD</span>
+      <div className="container mx-auto px-6 py-3">
+        {/* Top row with logo and hamburger */}
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center space-x-3">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg"
+              alt="ABC Agencies (PVT) LTD"
+              className="h-10 w-10 object-contain"
+            />
+            <span className="font-bold text-xl text-gray-800">ABC Agencies (PVT) LTD</span>
+          </div>
+
+          {/* Hamburger Button (Mobile) */}
+          <button
+            className="md:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-expanded={menuOpen}
+            aria-label="Toggle navigation menu"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {menuOpen ? (
+                // Close icon (X)
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                // Menu icon (Bars)
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+
+          {/* Desktop Navigation Menu */}
+          <div className="hidden md:flex items-center space-x-8">
+            <Link
+              to="/"
+              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+              onClick={handleLinkClick}
+            >
+              <span className="relative">
+                Home
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+              </span>
+            </Link>
+
+            <Link
+              to="/about"
+              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+              onClick={handleLinkClick}
+            >
+              <span className="relative">
+                About Us
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+              </span>
+            </Link>
+
+            {/* Countries Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
+              onFocus={() => setDropdownOpen(true)}
+              onBlur={() => setDropdownOpen(false)}
+            >
+              <button
+                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex items-center gap-1 group"
+                aria-haspopup="true"
+                aria-expanded={dropdownOpen}
+              >
+                <span className="relative">
+                  Countries
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+                </span>
+                <svg
+                  className={`w-4 h-4 ml-1 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {/* Dropdown Menu */}
+              <div
+                className={`${
+                  dropdownOpen ? "opacity-100 visible" : "opacity-0 invisible"
+                } absolute left-0 mt-2 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-50 transition-all duration-200 py-2`}
+              >
+                {countries.map((country) => (
+                  <Link
+                    key={country.path}
+                    to={`/country/${country.path}`}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150"
+                    onClick={handleLinkClick}
+                  >
+                    {country.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <Link
+              to="/contact"
+              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+              onClick={handleLinkClick}
+            >
+              <span className="relative">
+                Contact Us
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+              </span>
+            </Link>
+          </div>
         </div>
 
-        {/* Hamburger Button (Mobile) */}
-        <button
-          className="md:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 rounded p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-expanded={menuOpen}
-          aria-label="Toggle navigation menu"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            {menuOpen ? (
-              // Close icon (X)
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              // Menu icon (Bars)
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
-
-        {/* Navigation Menu */}
+        {/* Mobile Navigation Menu */}
         <div
           className={`${
             menuOpen ? "flex" : "hidden"
-          } md:flex flex-col md:flex-row items-center md:items-center space-y-4 md:space-y-0 md:space-x-8 w-full md:w-auto mt-4 md:mt-0`}
+          } md:hidden flex-col items-start space-y-4 w-full mt-4 pb-4`}
         >
           <Link
             to="/"
-            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group w-full"
             onClick={handleLinkClick}
           >
             <span className="relative">
@@ -89,7 +179,7 @@ const Navbar = () => {
 
           <Link
             to="/about"
-            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group w-full"
             onClick={handleLinkClick}
           >
             <span className="relative">
@@ -98,16 +188,11 @@ const Navbar = () => {
             </span>
           </Link>
 
-          {/* Countries Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setDropdownOpen(true)}
-            onMouseLeave={() => setDropdownOpen(false)}
-            onFocus={() => setDropdownOpen(true)}
-            onBlur={() => setDropdownOpen(false)}
-          >
+          {/* Mobile Countries Menu */}
+          <div className="w-full">
             <button
-              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex items-center gap-1 group"
+              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex items-center gap-1 group w-full justify-between"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
               aria-haspopup="true"
               aria-expanded={dropdownOpen}
             >
@@ -116,7 +201,7 @@ const Navbar = () => {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
               </span>
               <svg
-                className={`w-4 h-4 ml-1 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`}
+                className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -130,28 +215,26 @@ const Navbar = () => {
               </svg>
             </button>
 
-            {/* Dropdown Menu */}
-            <div
-              className={`${
-                dropdownOpen ? "opacity-100 visible" : "opacity-0 invisible"
-              } absolute left-0 mt-2 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-50 transition-all duration-200 py-2`}
-            >
-              {countries.map((country) => (
-                <Link
-                  key={country.path}
-                  to={`/country/${country.path}`}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-blue-600 transition-colors duration-150"
-                  onClick={handleLinkClick}
-                >
-                  {country.name}
-                </Link>
-              ))}
-            </div>
+            {/* Mobile Dropdown Menu */}
+            {dropdownOpen && (
+              <div className="mt-2 pl-4 space-y-2">
+                {countries.map((country) => (
+                  <Link
+                    key={country.path}
+                    to={`/country/${country.path}`}
+                    className="block py-2 text-sm text-gray-600 hover:text-blue-600 transition-colors duration-150"
+                    onClick={handleLinkClick}
+                  >
+                    {country.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           <Link
             to="/contact"
-            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group w-full"
             onClick={handleLinkClick}
           >
             <span className="relative">

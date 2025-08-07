@@ -5,7 +5,7 @@ const Welcome = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-20 bg-gradient-to-br from-green-50 via-white to-white">
+    <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Image Section */}
         <div className="order-2 lg:order-1">
@@ -18,7 +18,7 @@ const Welcome = () => {
             />
 
             {/* Experience Badge - Clean & Bold */}
-            <div className="absolute -bottom-6 left-6 bg-white text-center text-blue-700 px-6 py-3 rounded-xl shadow-lg border-2 border-green-200 font-bold flex items-center gap-2 min-w-36">
+            <div className="absolute -bottom-6 left-6 bg-white text-center text-blue-700 px-6 py-3 rounded-xl shadow-lg border-2 border-blue-200 font-bold flex items-center gap-2 min-w-36">
               <span className="text-2xl">20+</span>
               <span className="text-sm leading-tight">Years of Excellence</span>
             </div>
@@ -69,13 +69,13 @@ const Welcome = () => {
           <div className="flex flex-col sm:flex-row gap-4 pt-2">
             <button
               onClick={() => navigate("/about")}
-              className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-7 py-3 rounded-lg font-semibold shadow-md transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-7 py-3 rounded-lg font-semibold shadow-md transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Learn About Us
             </button>
             <button
               onClick={() => navigate("/services")}
-              className="cursor-pointer border-2 border-blue-600 text-blue-700 bg-white hover:bg-green-50 hover:border-blue-900 px-7 py-3 rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="cursor-pointer border-2 border-blue-600 text-blue-700 bg-white hover:bg-blue-50 hover:border-blue-900 px-7 py-3 rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Our Services
             </button>
