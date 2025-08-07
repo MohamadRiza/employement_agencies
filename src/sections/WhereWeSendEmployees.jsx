@@ -77,34 +77,44 @@ const WhereWeSendEmployees = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-          Where We Send <span className="text-blue-600">Employees</span> Worldwide
+    <section
+      className="py-20 bg-cover bg-center bg-no-repeat relative"
+      style={{
+        backgroundImage:
+          "url('https://images.travelandleisureasia.com/wp-content/uploads/sites/5/2023/11/22150528/mirissa.jpeg')",
+      }}
+    >
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/60"></div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center mb-16">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-md">
+          Where We Send <span className="text-blue-300">Employees</span> Worldwide
         </h2>
-        <p className="mt-6 text-lg text-gray-600 max-w-4xl mx-auto">
+        <p className="mt-6 text-lg text-gray-100 max-w-4xl mx-auto drop-shadow-sm">
           ABC Agencies (PVT) LTD supports skilled professionals in securing legal employment, 
           study opportunities, and family visits across the globe.
         </p>
       </div>
 
       {/* Country Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 lg:px-8">
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 lg:px-8 lg:opacity-90">
         {countries.map((country, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105"
+            className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 hover:bg-blue-100"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             {/* Flag & Country Name */}
-            <div className="text-center py-6 bg-gray-50 border-b">
+            <div className="text-center py-6 bg-gradient-to-r from-blue-50 to-indigo-100 border-b">
               <div className="text-6xl mb-2">{country.flag}</div>
               <h3 className="text-2xl font-bold text-gray-800">{country.name}</h3>
-              <p className="text-sm text-gray-500">Capital: {country.capital}</p>
+              <p className="text-sm text-gray-600">Capital: {country.capital}</p>
             </div>
 
             {/* Details */}
-            <div className="p-6 space-y-3">
+            <div className="p-6 space-y-3 text-center">
               <div>
                 <span className="font-semibold text-gray-700">Visa Type:</span>
                 <p className="text-gray-600 text-sm">{country.visaType}</p>

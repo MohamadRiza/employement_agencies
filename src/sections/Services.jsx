@@ -61,7 +61,7 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-20 bg-gradient-to-b from-gray-200 to-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
           Our <span className="text-blue-600">Services</span> at ABC Agencies (PVT) LTD

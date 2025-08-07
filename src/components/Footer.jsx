@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* About Section */}
           <div className="text-center md:text-left">
-            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-green-400 to-emerald-500 inline-block text-transparent bg-clip-text">
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-blue-500 inline-block text-transparent bg-clip-text">
               ABC Agencies (PVT) LTD
             </h3>
             <p className="text-gray-300 leading-relaxed mb-6 max-w-xs mx-auto md:mx-0">
@@ -24,7 +24,7 @@ const Footer = () => {
             </p>
             <Link
               to="/about"
-              className="inline-flex items-center text-green-400 hover:text-green-300 font-medium transition group"
+              className="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium transition group"
             >
               Learn More
               <span className="ml-1 transition-transform group-hover:translate-x-1">
@@ -48,11 +48,11 @@ const Footer = () => {
                 <li key={item.path}>
                   <Link
                     to={item.path}
-                    className="text-gray-300 hover:text-green-400 transition duration-200 flex justify-center md:justify-start group"
+                    className="text-gray-300 hover:text-blue-400 transition duration-200 flex justify-center md:justify-start group"
                   >
                     <span className="relative">
                       {item.name}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all group-hover:w-full"></span>
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all group-hover:w-full"></span>
                     </span>
                   </Link>
                 </li>
@@ -74,7 +74,7 @@ const Footer = () => {
                   📞{" "}
                   <a
                     href="tel:+94112345678"
-                    className="hover:text-green-400 transition"
+                    className="hover:text-blue-400 transition"
                   >
                     +94 11 234 5678
                   </a>
@@ -83,7 +83,7 @@ const Footer = () => {
                   📧{" "}
                   <a
                     href="mailto:riza@gmail.com"
-                    className="hover:text-green-400 transition"
+                    className="hover:text-blue-400 transition"
                   >
                     riza@gmail.com
                   </a>
