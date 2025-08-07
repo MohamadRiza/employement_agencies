@@ -1,45 +1,168 @@
-import React from "react";
-import { Button } from "@/components/ui/button"; // shadcn UI button
-import { Link } from "react-router-dom"; // If using react-router for navigation
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-    const [menuOpen, setMenuOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    return (
-        <nav className="bg-gray-100 shadow-md px-6 py-4 flex items-center justify-between flex-wrap">
-            {/* Logo Section */}
-            <div className="flex items-center space-x-3">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg"
-                    alt="Logo"
-                    className="h-12 w-12 object-contain"
-                />
-                <span className="font-bold text-xl text-gray-800">Manpower Agencies</span>
-            </div>
-            {/* Hamburger Icon for mobile */}
+  const countries = [
+    { name: "Qatar", path: "qatar" },
+    { name: "United Arab Emirates", path: "uae" },
+    { name: "Saudi Arabia", path: "saudi-arabia" },
+    { name: "Malaysia", path: "malaysia" },
+    { name: "Singapore", path: "singapore" },
+    { name: "Australia", path: "australia" },
+    { name: "United Kingdom", path: "uk" },
+    { name: "United States", path: "usa" },
+    { name: "Germany", path: "germany" },
+    { name: "New Zealand", path: "new-zealand" },
+  ];
+
+  // Close all menus when a link is clicked
+  const handleLinkClick = () => {
+    setMenuOpen(false);
+    setDropdownOpen(false);
+  };
+
+  return (
+    <nav className="bg-white shadow-sm sticky top-0 z-50" aria-label="Main Navigation">
+      <div className="container mx-auto px-6 py-3 flex items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center space-x-3">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg"
+            alt="ABC Agencies (PVT) LTD"
+            className="h-10 w-10 object-contain"
+          />
+          <span className="font-bold text-xl text-gray-800">ABC Agencies (PVT) LTD</span>
+        </div>
+
+        {/* Hamburger Button (Mobile) */}
+        <button
+          className="md:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 rounded p-2"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-expanded={menuOpen}
+          aria-label="Toggle navigation menu"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            {menuOpen ? (
+              // Close icon (X)
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              // Menu icon (Bars)
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+
+        {/* Navigation Menu */}
+        <div
+          className={`${
+            menuOpen ? "flex" : "hidden"
+          } md:flex flex-col md:flex-row items-center md:items-center space-y-4 md:space-y-0 md:space-x-8 w-full md:w-auto mt-4 md:mt-0`}
+        >
+          <Link
+            to="/"
+            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+            onClick={handleLinkClick}
+          >
+            <span className="relative">
+              Home
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+            </span>
+          </Link>
+
+          <Link
+            to="/about"
+            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+            onClick={handleLinkClick}
+          >
+            <span className="relative">
+              About Us
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+            </span>
+          </Link>
+
+          {/* Countries Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+            onFocus={() => setDropdownOpen(true)}
+            onBlur={() => setDropdownOpen(false)}
+          >
             <button
-                className="block md:hidden ml-auto text-gray-700 focus:outline-none"
-                onClick={() => setMenuOpen(!menuOpen)}
-                aria-label="Toggle menu"
+              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex items-center gap-1 group"
+              aria-haspopup="true"
+              aria-expanded={dropdownOpen}
             >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+              <span className="relative">
+                Countries
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+              </span>
+              <svg
+                className={`w-4 h-4 ml-1 transition-transform duration-200 ${dropdownOpen ? "transform rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
             </button>
-            {/* Navigation Buttons */}
-            <div className={`flex-col md:flex-row md:flex space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto ${menuOpen ? "flex" : "hidden"} md:items-center md:justify-end mt-4 md:mt-0`}>
-                <Link to="/">
-                    <Button variant="outline" className="w-full md:w-auto">Home</Button>
+
+            {/* Dropdown Menu */}
+            <div
+              className={`${
+                dropdownOpen ? "opacity-100 visible" : "opacity-0 invisible"
+              } absolute left-0 mt-2 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-50 transition-all duration-200 py-2`}
+            >
+              {countries.map((country) => (
+                <Link
+                  key={country.path}
+                  to={`/country/${country.path}`}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-blue-600 transition-colors duration-150"
+                  onClick={handleLinkClick}
+                >
+                  {country.name}
                 </Link>
-                <Link to="/about">
-                    <Button variant="outline" className="w-full md:w-auto">About Us</Button>
-                </Link>
-                <Link to="/contact">
-                    <Button variant="outline" className="w-full md:w-auto">Contact Us</Button>
-                </Link>
+              ))}
             </div>
-        </nav>
-    );
+          </div>
+
+          <Link
+            to="/contact"
+            className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+            onClick={handleLinkClick}
+          >
+            <span className="relative">
+              Contact Us
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+            </span>
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
