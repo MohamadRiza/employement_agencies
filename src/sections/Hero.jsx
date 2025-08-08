@@ -28,7 +28,7 @@ const Hero = () => {
       {images.map((img, idx) => (
         <div
           key={idx}
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 bg-fixed ${
             idx === currentImageIndex ? "opacity-100" : "opacity-0"
           }`}
           style={{

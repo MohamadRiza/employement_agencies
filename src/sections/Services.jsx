@@ -2,69 +2,71 @@ import React from "react";
 
 const Services = () => {
   const serviceCards = [
-    {
-      title: "Skilled Domestic Workers",
-      description:
-        "We train and place qualified housemaids, nannies, and caregivers in private homes across the Middle East, Europe, and Asia with full legal compliance.",
-      icon: "👩‍🍳",
-      delay: "0s",
-    },
-    {
-      title: "Professional Stewards & Cooks",
-      description:
-        "Supplying experienced stewards and professional cooks for private households, yachts, and hospitality sectors worldwide.",
-      icon: "🍽️",
-      delay: "0.2s",
-    },
-    {
-      title: "Certified Caregivers",
-      description:
-        "Our caregivers receive international-standard training and are placed in senior care, medical, and home support roles globally.",
-      icon: "🩺",
-      delay: "0.4s",
-    },
-    {
-      title: "Reliable Staffing Solutions",
-      description:
-        "We connect families and employers with trustworthy, culturally matched domestic staff, ensuring seamless integration and long-term satisfaction.",
-      icon: "🤝",
-      delay: "0.6s",
-    },
-    {
-      title: "Work Visa Processing",
-      description:
-        "Assistance with full work visa processing for domestic staff, hospitality workers, and skilled professionals traveling to Gulf countries and beyond.",
-      icon: "🛂",
-      delay: "0.8s",
-    },
-    {
-      title: "Study Abroad Guidance",
-      description:
-        "Support for individuals seeking education opportunities abroad, including visa application, documentation, and placement in accredited institutions.",
-      icon: "🎓",
-      delay: "1.0s",
-    },
-    {
-      title: "Visit & Family Visas",
-      description:
-        "We help families and individuals apply for visit visas to join relatives or travel for tourism in countries like Saudi Arabia, UAE, and Qatar.",
-      icon: "✈️",
-      delay: "1.2s",
-    },
-    {
-      title: "Pre-Departure Training",
-      description:
-        "Comprehensive training in language, cultural awareness, job skills, and legal rights to prepare candidates for successful international employment.",
-      icon: "📘",
-      delay: "1.4s",
-    },
+    
+  {
+    title: "Skilled Domestic Workers",
+    description:
+      "We recruit, train, and legally place experienced housemaids, nannies, and household helpers in homes across the Middle East, Europe, and Asia, ensuring ethical employment standards.",
+    image: "https://images.pexels.com/photos/3768123/pexels-photo-3768123.jpeg?auto=compress&cs=tinysrgb&w=600",
+    delay: "0s"
+  },
+  {
+    title: "Professional Stewards & Cooks",
+    description:
+      "Our agency provides expertly trained stewards and chefs for private homes, luxury yachts, and five-star hospitality venues globally, with culinary and service excellence.",
+    image: "https://images.pexels.com/photos/4109132/pexels-photo-4109132.jpeg?auto=compress&cs=tinysrgb&w=600",
+    delay: "0.2s"
+  },
+  {
+    title: "Certified Caregivers",
+    description:
+      "We place internationally certified caregivers in roles supporting elderly care, individuals with disabilities, and home-based medical support, ensuring compassion and professionalism.",
+    image: "https://images.pexels.com/photos/4109145/pexels-photo-4109145.jpeg?auto=compress&cs=tinysrgb&w=600",
+    delay: "0.4s"
+  },
+  {
+    title: "Reliable Staffing Solutions",
+    description:
+      "We match families and organizations with culturally compatible and background-verified domestic staff to ensure trust, comfort, and lasting placements.",
+    image: "https://images.pexels.com/photos/3771045/pexels-photo-3771045.jpeg?auto=compress&cs=tinysrgb&w=600",
+    delay: "0.6s"
+  },
+  {
+    title: "Work Visa Processing",
+    description:
+      "End-to-end assistance with work visa applications, documentation, and embassy coordination for skilled domestic workers and hospitality professionals.",
+    image: "https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=600",
+    delay: "0.8s"
+  },
+  {
+    title: "Study Abroad Guidance",
+    description:
+      "We provide expert support for students pursuing education abroad—covering admission guidance, student visa processing, and placement in accredited universities.",
+    image: "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600",
+    delay: "1.0s"
+  },
+  {
+    title: "Visit & Family Visas",
+    description:
+      "Application assistance for short-term visit visas, family reunification, and tourism travel to Gulf countries including UAE, Saudi Arabia, and Qatar.",
+    image: "https://images.pexels.com/photos/2102415/pexels-photo-2102415.jpeg?auto=compress&cs=tinysrgb&w=600",
+    delay: "1.2s"
+  },
+  {
+    title: "Pre-Departure Training",
+    description:
+      "Comprehensive orientation including soft skills, cultural adaptation, language basics, and workers’ rights to ensure candidates succeed abroad.",
+    image: "https://images.pexels.com/photos/4109139/pexels-photo-4109139.jpeg?auto=compress&cs=tinysrgb&w=600",
+    delay: "1.4s"
+  }
+
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-200 to-white">
+    <section className="py-20 from-gray-300 to-gray-50 bg-gradient-to-r">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-          Our <span className="text-blue-600">Services</span> at ABC Agencies (PVT) LTD
+          Our <span className="text-green-600">Services</span> at ABC Agencies (PVT) LTD
         </h2>
         <p className="mt-6 text-lg text-gray-600 max-w-4xl mx-auto">
           We specialize in training, placing, and supporting skilled professionals for international employment, 
@@ -77,29 +79,32 @@ const Services = () => {
         {serviceCards.map((card, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3"
+            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group"
             style={{
               animationDelay: card.delay,
               opacity: 0,
               animation: `fadeInUp 0.6s ease forwards`,
             }}
           >
-            {/* Icon */}
-            <div className="flex justify-center pt-8 text-5xl">{card.icon}</div>
+            {/* Image */}
+            <div className="h-48 overflow-hidden">
+              <img
+                src={card.image}
+                alt={card.title}
+                className="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+              />
+            </div>
 
             {/* Content */}
             <div className="p-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-3 text-center">
-                {card.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed text-center">
-                {card.description}
-              </p>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">{card.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{card.description}</p>
             </div>
           </div>
         ))}
       </div>
 
+      {/* Animation Keyframes */}
       <style jsx>{`
         @keyframes fadeInUp {
           from {

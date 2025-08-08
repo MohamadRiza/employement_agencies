@@ -78,10 +78,10 @@ const WhereWeSendEmployees = () => {
 
   return (
     <section
-      className="py-20 bg-cover bg-center bg-no-repeat relative"
+      className="py-20 bg-cover bg-fixed bg-no-repeat relative"
       style={{
         backgroundImage:
-          "url('https://images.travelandleisureasia.com/wp-content/uploads/sites/5/2023/11/22150528/mirissa.jpeg')",
+          "url('https://images.pexels.com/photos/1008155/pexels-photo-1008155.jpeg')",
       }}
     >
       {/* Overlay for better text readability */}
