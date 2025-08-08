@@ -6,16 +6,16 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const countries = [
-    { name: "Qatar", path: "qatar" },
-    { name: "United Arab Emirates", path: "uae" },
-    { name: "Saudi Arabia", path: "saudi-arabia" },
-    { name: "Malaysia", path: "malaysia" },
-    { name: "Singapore", path: "singapore" },
-    { name: "Australia", path: "australia" },
-    { name: "United Kingdom", path: "uk" },
-    { name: "United States", path: "usa" },
-    { name: "Germany", path: "germany" },
-    { name: "New Zealand", path: "new-zealand" },
+    { name: "🇶🇦 Qatar", path: "qatar" },
+    { name: "🇦🇪 United Arab Emirates", path: "uae" },
+    { name: "🇸🇦 Saudi Arabia", path: "saudi-arabia" },
+    { name: "🇲🇾 Malaysia", path: "malaysia" },
+    { name: "🇸🇬 Singapore", path: "singapore" },
+    { name: "🇦🇺 Australia", path: "australia" },
+    { name: "🇬🇧 United Kingdom", path: "uk" },
+    { name: "🇺🇸 United States", path: "usa" },
+    { name: "🇩🇪 Germany", path: "germany" },
+    { name: "🇳🇿 New Zealand", path: "new-zealand" },
   ];
 
   // Close all menus when a link is clicked
@@ -85,7 +85,18 @@ const Navbar = () => {
               </span>
             </Link>
 
-            <Link
+              <Link
+              to="/Jobs"
+              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+              onClick={handleLinkClick}
+            >
+              <span className="relative">
+                Vacancies
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+              </span>
+            </Link>
+
+            {/* <Link
               to="/about"
               className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
               onClick={handleLinkClick}
@@ -94,7 +105,7 @@ const Navbar = () => {
                 About Us
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
               </span>
-            </Link>
+            </Link> */}
 
             {/* Countries Dropdown */}
             <div
@@ -147,6 +158,17 @@ const Navbar = () => {
               </div>
             </div>
 
+                <Link
+              to="/FAQ"
+              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+              onClick={handleLinkClick}
+            >
+              <span className="relative">
+                FAQ
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+              </span>
+            </Link>
+
             <Link
               to="/contact"
               className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
@@ -178,6 +200,17 @@ const Navbar = () => {
           </Link>
 
           <Link
+              to="/Jobs"
+              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+              onClick={handleLinkClick}
+            >
+              <span className="relative">
+                Vacancies
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+              </span>
+            </Link>
+
+          {/* <Link
             to="/about"
             className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group w-full"
             onClick={handleLinkClick}
@@ -186,7 +219,7 @@ const Navbar = () => {
               About Us
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
             </span>
-          </Link>
+          </Link> */}
 
           {/* Mobile Countries Menu */}
           <div className="w-full">
@@ -231,6 +264,17 @@ const Navbar = () => {
               </div>
             )}
           </div>
+
+          <Link
+              to="/FAQ"
+              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
+              onClick={handleLinkClick}
+            >
+              <span className="relative">
+                FAQ
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-full"></span>
+              </span>
+            </Link>
 
           <Link
             to="/contact"

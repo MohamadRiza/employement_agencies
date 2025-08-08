@@ -53,10 +53,8 @@ const Footer = () => {
             <ul className="space-y-3">
               {[
                 { name: "Home", path: "/" },
-                { name: "About Us", path: "/about" },
-                { name: "Our Services", path: "/services" },
-                { name: "Visa Categories", path: "/visa" },
-                { name: "Testimonials", path: "/testimonials" },
+                { name: "Vacancies", path: "/Jobs" },
+                { name: "FAQ", path: "/FAQ" },
                 { name: "Contact Us", path: "/contact" },
               ].map((item) => (
                 <li key={item.path}>

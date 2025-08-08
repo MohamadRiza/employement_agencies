@@ -66,7 +66,7 @@ const Services = () => {
     <section className="py-20 from-gray-300 to-gray-50 bg-gradient-to-r">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-          Our <span className="text-green-600">Services</span> at ABC Agencies (PVT) LTD
+          Our <span className="text-blue-600">Services</span> at ABC Agencies (PVT) LTD
         </h2>
         <p className="mt-6 text-lg text-gray-600 max-w-4xl mx-auto">
           We specialize in training, placing, and supporting skilled professionals for international employment, 

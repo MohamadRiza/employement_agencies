@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import ContectHeader from "./components/ContectHeader";
-import About from "./pages/About";
+import FAQ from "./pages/FAQ";
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/FAQ" element={<FAQ />} />
           </Routes>
         </main>
         <Footer />
