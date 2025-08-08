@@ -25,12 +25,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50" aria-label="Main Navigation">
+    <nav className="from-white to-gray-300 bg-gradient-to-b shadow-sm sticky top-0 z-50" aria-label="Main Navigation">
       <div className="container mx-auto px-6 py-3">
         {/* Top row with logo and hamburger */}
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 cursor-default" onClick={()=> window.location.href = '/'}>
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg"
               alt="ABC Agencies (PVT) LTD"
