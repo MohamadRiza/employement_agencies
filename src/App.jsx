@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import ContectHeader from "./components/ContectHeader";
 import FAQ from "./pages/FAQ";
+import Contact from "./pages/Contect";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/FAQ" element={<FAQ />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
         <Footer />
