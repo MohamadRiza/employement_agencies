@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaShieldAlt } from "react-icons/fa";
+import { FaInfoCircle, FaShieldAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -93,6 +93,11 @@ const AdminLogin = () => {
           <div className="text-sm text-center text-white/90 mt-6 bg-red-600/70 px-5 py-3 rounded-lg font-bold backdrop-blur-sm border border-white/20">
             <FaShieldAlt className="inline-block mr-2" />
             Do not try to login. This page is dedicated only for admin.
+          </div>
+
+          <div className="text-sm text-center text-white/90 mt-6 bg-green-600/70 px-5 py-3 rounded-lg font-bold backdrop-blur-sm border border-white/20">
+            <FaInfoCircle className="inline-block mr-2" />
+            Do not Login With Mobile Devices <b className="">Use Desktop Instead...</b>
           </div>
         </form>
       </div>

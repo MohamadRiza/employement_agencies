@@ -8,10 +8,12 @@ import Contact from "./pages/Contect";
 import AdminPanel from "./pages/adminpages/AdminPanel";
 import AdminLogin from "./pages/adminpages/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <div className="flex flex-col min-h-screen">
         <ContectHeader />
         <Navbar />
