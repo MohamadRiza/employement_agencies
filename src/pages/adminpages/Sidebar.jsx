@@ -33,8 +33,12 @@ const Sidebar = ({ activeTab, setActiveTab, logout }) => {
         </button>
 
         <button
-          onClick={() => alert("Upload Vacancies feature coming soon!")}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/20 transition"
+          onClick={() => setActiveTab("upload")}
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
+            activeTab === "upload"
+              ? "bg-blue-600 text-white shadow-lg"
+              : "hover:bg-white/20"
+          }`}
         >
           <FaClipboardList />
           Upload Vacancies

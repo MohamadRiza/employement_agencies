@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Messages from "./Messages";
 import Settings from "./Settings";
+import UploadVacancies from "./UploadVacancies";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("messages");
@@ -18,7 +19,7 @@ const AdminPanel = () => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      className="min-h-screen bg-cover bg-center bg-no-repeat bg-fixed relative" //bg fixed and relative so if no need change it later if no responsive or any other issues
       style={{
         backgroundImage:
           "url('https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg')",
@@ -29,9 +30,10 @@ const AdminPanel = () => {
       <div className="relative z-10 flex h-screen">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} logout={logout} />
 
-        <div className="flex-1 p-8 overflow-y-auto">
+        <div className="flex-1 p-8 flex flex-col overflow-hidden">
           {activeTab === "messages" && <Messages />}
           {activeTab === "settings" && <Settings />}
+          {activeTab === "upload" && <UploadVacancies />}
         </div>
       </div>
     </div>
