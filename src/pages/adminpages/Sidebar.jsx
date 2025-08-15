@@ -3,7 +3,8 @@ import { FaSignOutAlt, FaUserCog, FaClipboardList, FaEnvelope } from "react-icon
 
 const Sidebar = ({ activeTab, setActiveTab, logout }) => {
   return (
-    <div className="w-64 bg-white/20 backdrop-blur-md border-r border-white/30 p-6 flex flex-col text-white">
+    // added additionally height after w-64
+    <div className="w-64 h-screen bg-white/20 backdrop-blur-md border-r border-white/30 p-6 flex flex-col text-white">
       <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
         <FaUserCog /> Admin Panel
       </h2>
@@ -41,7 +42,7 @@ const Sidebar = ({ activeTab, setActiveTab, logout }) => {
           }`}
         >
           <FaClipboardList />
-          Upload Vacancies
+          Manage Vacancies
         </button>
       </nav>
 

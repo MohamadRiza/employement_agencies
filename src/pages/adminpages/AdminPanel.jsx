@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Messages from "./Messages";
 import Settings from "./Settings";
-import UploadVacancies from "./UploadVacancies";
+import AdminVacancies from "./AdminVacancies";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("messages");
@@ -27,13 +27,13 @@ const AdminPanel = () => {
     >
       <div className="absolute inset-0 bg-black/80"></div>
 
-      <div className="relative z-10 flex h-screen">
+      <div className="relative z-10 flex">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} logout={logout} />
 
         <div className="flex-1 p-8 flex flex-col overflow-hidden">
           {activeTab === "messages" && <Messages />}
           {activeTab === "settings" && <Settings />}
-          {activeTab === "upload" && <UploadVacancies />}
+          {activeTab === "upload" && <AdminVacancies />}
         </div>
       </div>
     </div>

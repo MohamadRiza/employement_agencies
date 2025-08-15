@@ -9,6 +9,7 @@ import AdminPanel from "./pages/adminpages/AdminPanel";
 import AdminLogin from "./pages/adminpages/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ScrollToTop from "./ScrollToTop";
+import VacanciesPage from "./pages/Vacancies";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/vacancies" element={<VacanciesPage />} />
             <Route path="/admin-login" element={<AdminLogin />} />
             <Route
               path="/admin"

@@ -86,7 +86,7 @@ const Navbar = () => {
             </Link>
 
               <Link
-              to="/Jobs"
+              to="/vacancies"
               className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
               onClick={handleLinkClick}
             >
@@ -200,7 +200,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-              to="/Jobs"
+              to="/vacancies"
               className="text-gray-700 hover:text-blue-600 transition-colors duration-200 flex group"
               onClick={handleLinkClick}
             >
