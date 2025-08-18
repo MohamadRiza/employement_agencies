@@ -1,3 +1,4 @@
+import CustomerAIChat from '@/components/CustomerAIChat'
 import Hero from '@/sections/Hero'
 import OurAwards from '@/sections/OurAwards'
 import Services from '@/sections/Services'
@@ -15,6 +16,7 @@ const Home = () => {
       <WhereWeSendEmployees />
       <WhyChooseUs />
       <OurAwards/>
+      <CustomerAIChat/>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import CustomerAIChat from "@/components/CustomerAIChat";
 import React, { useState } from "react";
 
 const FAQ = () => {
@@ -124,6 +125,7 @@ const FAQ = () => {
           Contact Us Now
         </button>
       </div>
+      <CustomerAIChat/>
     </section>
   );
 };

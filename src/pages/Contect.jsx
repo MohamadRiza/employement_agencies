@@ -1,4 +1,5 @@
 // src/components/Contact.jsx
+import CustomerAIChat from "@/components/CustomerAIChat";
 import React, { useState } from "react";
 import {
   FaEnvelope,
@@ -243,6 +244,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      <CustomerAIChat/>
     </section>
   );
 };

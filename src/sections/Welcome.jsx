@@ -12,7 +12,7 @@ const Welcome = () => {
           <div className="relative">
             {/* Main Image */}
             <img
-              src="https://z-p3-scontent.fcmb9-1.fna.fbcdn.net/v/t39.30808-6/503987323_9881159078634595_7259540170633679670_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=hdaeltwlpdEQ7kNvwHDmeJU&_nc_oc=AdlSxZ56NO_23_je6A1XVT7S-gknUuLjIm2mYBkJBSGdSvpwEp3l1zvX04vntTQhMzQ&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb9-1.fna&_nc_gid=MZYAcctW0Sf2Z8dSiA7soA&oh=00_AfVqaVpteogy3VeXStdB-oup7do8FIw5qwxjJaBB3jihSQ&oe=6899D277"
+              src="https://z-p3-scontent.fcmb9-1.fna.fbcdn.net/v/t1.6435-9/89519288_1356375951228087_8887066421016657920_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=eNbiMFla0esQ7kNvwF6qmDN&_nc_oc=AdlNNTeSEqYQ_0OygnQUlJ3IHpLuG20YfU2xj435NrRvJ7J_hdI2A4iKwCNP6URE-Mw&_nc_zt=23&_nc_ht=z-p3-scontent.fcmb9-1.fna&_nc_gid=IHRB792m7pQ_BUjZ6XKM6g&oh=00_AfWAkVLG-q8D9viAWcw5OeS4QBxWvEThPBWsueqdVwz7cA&oe=68CA1E8F"
               alt="ABC Agencies - Skilled Manpower Recruitment"
               className="w-full h-80 object-cover rounded-2xl shadow-xl"
             />
