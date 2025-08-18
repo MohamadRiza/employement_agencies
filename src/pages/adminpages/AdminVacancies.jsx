@@ -1,10 +1,10 @@
 // src/components/admin/AdminVacancies.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { createVacancy, fetchVacancies, updateVacancy, deleteVacancy } from "@/pages/adminpages/adminServices/api";
-import { FaTrash, FaEdit, FaImage, FaCalendarAlt, FaSpinner, FaSave, FaPlus, FaSearch } from "react-icons/fa";
+import { FaTrash, FaEdit, FaImage, FaCalendarAlt, FaSpinner, FaSave, FaPlus, FaSearch, FaRobot } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const AdminVacancies = () => {
   const [vacancies, setVacancies] = useState([]);
@@ -20,7 +20,7 @@ const AdminVacancies = () => {
   const [editingId, setEditingId] = useState(null);
   const [preview, setPreview] = useState("");
   const [msg, setMsg] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // 🔍 New: Search input
+  const [searchTerm, setSearchTerm] = useState("");
 
   const listRef = useRef(null);
   const navigate = useNavigate();
@@ -67,6 +67,46 @@ const AdminVacancies = () => {
     setPreview("");
     setEditingId(null);
     setMsg("");
+  };
+
+  // 🔁 AI Generate Description
+  const generateDescriptionWithAI = async () => {
+    if (!form.title || !form.country || !form.salary) {
+      setMsg("❌ Please fill Job Title, Country, and Salary first.");
+      return;
+    }
+
+    setFormLoading(true);
+    setMsg("🤖 Generating professional description...");
+
+    try {
+      const token = localStorage.getItem("adminToken");
+      const res = await fetch(`${API_URL}/api/ai/admin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: form.title,
+          country: form.country,
+          salary: form.salary,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setForm({ ...form, description: data.description });
+        setMsg("✅ AI-generated description added!");
+      } else {
+        setMsg(`❌ AI Error: ${data.description || "Unknown error"}`);
+      }
+    } catch (err) {
+      setMsg("❌ Network error. Failed to connect to AI.");
+    } finally {
+      setFormLoading(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -151,7 +191,7 @@ const AdminVacancies = () => {
     }
   };
 
-  // 🔍 Filter vacancies based on search term
+  // 🔍 Filter vacancies
   const filteredVacancies = vacancies.filter((v) =>
     [v.title, v.country, v.description].some((field) =>
       field.toLowerCase().includes(searchTerm.toLowerCase())
@@ -216,6 +256,17 @@ const AdminVacancies = () => {
               className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
+
+            {/* AI Generate Button */}
+            <button
+              type="button"
+              onClick={generateDescriptionWithAI}
+              disabled={formLoading || !form.title || !form.country || !form.salary}
+              className="w-full mt-2 text-sm bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:opacity-70 text-white py-2 rounded-lg transition flex items-center justify-center gap-1"
+            >
+              <FaRobot size={14} /> Generate with AI
+            </button>
+
             <div>
               <label htmlFor="vacancyImage" className="block text-sm font-medium mb-1">
                 Image
@@ -233,6 +284,8 @@ const AdminVacancies = () => {
                 <img src={preview} alt="Preview" className="h-36 object-cover rounded-lg" />
               </div>
             )}
+
+            {/* Submit & Cancel */}
             <div className="flex gap-3 mt-auto">
               <button
                 type="submit"

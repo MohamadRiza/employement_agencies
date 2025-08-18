@@ -10,6 +10,7 @@ import AdminLogin from "./pages/adminpages/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ScrollToTop from "./ScrollToTop";
 import VacanciesPage from "./pages/Vacancies";
+import VacancyDetailPage from "./pages/VacancyDetailPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/vacancy/:id" element={<VacancyDetailPage />} />
             <Route path="/vacancies" element={<VacanciesPage />} />
             <Route path="/admin-login" element={<AdminLogin />} />
             <Route

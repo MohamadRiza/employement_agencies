@@ -1,7 +1,8 @@
 // src/pages/VacanciesPage.jsx
-import CustomerAIChat from "@/components/CustomerAIChat";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaSearch, FaMapMarkerAlt, FaDollarSign, FaCalendarAlt } from "react-icons/fa";
+import CustomerAIChat from "@/components/CustomerAIChat";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -11,6 +12,8 @@ const VacanciesPage = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
+
+  const navigate = useNavigate();
 
   // Fetch vacancies from backend
   useEffect(() => {
@@ -81,7 +84,7 @@ const VacanciesPage = () => {
         </div>
 
         {/* Search & Filter */}
-        <div className="bg-white/50 backdrop-blur-md p-6 rounded-2xl shadow-xl mb-12 space-y-4 md:flex md:space-y-0 md:space-x-6 hover:bg-gradient-to-b from-white to-gray-300 transition animation-duration-initial">
+        <div className="bg-white/50 backdrop-blur-md p-6 rounded-2xl shadow-xl mb-12 space-y-4 md:flex md:space-y-0 md:space-x-6 hover:bg-gradient-to-b from-white to-gray-300 transition">
           {/* Search Bar */}
           <div className="flex-1 relative">
             <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -130,7 +133,8 @@ const VacanciesPage = () => {
             {filteredVacancies.map((v) => (
               <div
                 key={v._id}
-                className="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2"
+                className="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 cursor-pointer"
+                onClick={() => navigate(`/vacancy/${v._id}`)}
               >
                 {/* Image */}
                 <div className="h-52 overflow-hidden">
@@ -177,7 +181,9 @@ const VacanciesPage = () => {
           </p>
         </div>
       </div>
-      <CustomerAIChat/>
+
+      {/* AI Chat Widget */}
+      <CustomerAIChat />
     </section>
   );
 };

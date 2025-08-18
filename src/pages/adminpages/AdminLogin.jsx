@@ -85,7 +85,7 @@ const AdminLogin = () => {
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 transition-all text-white py-3 rounded-lg font-semibold shadow-lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-all text-white py-3 rounded-lg font-semibold shadow-lg cursor-pointer"
           >
             Login
           </button>

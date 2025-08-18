@@ -24,7 +24,7 @@ const Messages = () => {
     fetchMessages();
   }, [token]);
 
-  // Delete message function
+  // Delete message
   const deleteMessage = async (id) => {
     if (!window.confirm("Are you sure you want to delete this message?")) return;
 
@@ -35,7 +35,6 @@ const Messages = () => {
       });
 
       if (res.ok) {
-        // Remove deleted message from state to update UI
         setMessages(messages.filter((msg) => msg._id !== id));
       } else {
         const data = await res.json();
@@ -48,21 +47,31 @@ const Messages = () => {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    // 👇 force full page height
+    <div className="flex flex-col h-screen p-4">
       <h2 className="text-3xl font-bold text-white mb-6">Client Messages</h2>
 
-      {messages.length === 0 ? (
-        <div className="bg-white/10 backdrop-blur-sm p-10 rounded-2xl text-center text-gray-300 flex-1 flex items-center justify-center">
-          <FaEnvelope className="text-6xl mx-auto mb-4 opacity-50" />
-          <p>No messages yet.</p>
-        </div>
-      ) : (
-        <div className="flex-1 overflow-y-auto space-y-0.5 pr-2 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-900/20">
-          {messages.map((msg) => (
-            <MessageCard key={msg._id} msg={msg} onDelete={() => deleteMessage(msg._id)} />
-          ))}
-        </div>
-      )}
+      {/* ✅ now this area will scroll */}
+      <div className="flex-1 overflow-y-auto 
+                      scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-900/20 
+                      rounded-lg bg-white/5 p-2">
+        {messages.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full text-gray-300">
+            <FaEnvelope className="text-6xl mb-4 opacity-50" />
+            <p>No messages yet.</p>
+          </div>
+        ) : (
+          <div className="space-y-0.5 pr-2">
+            {messages.map((msg) => (
+              <MessageCard
+                key={msg._id}
+                msg={msg}
+                onDelete={() => deleteMessage(msg._id)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
