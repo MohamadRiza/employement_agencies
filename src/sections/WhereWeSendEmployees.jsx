@@ -90,7 +90,7 @@ const WhereWeSendEmployees = () => {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-md">
-          Where We Send <span className="text-blue-300">Employees</span> Worldwide
+          Where We Send <span className="text-blue-600">Employees</span> Worldwide
         </h2>
         <p className="mt-6 text-lg text-gray-100 max-w-4xl mx-auto drop-shadow-sm">
           ABC Agencies (PVT) LTD supports skilled professionals in securing legal employment, 

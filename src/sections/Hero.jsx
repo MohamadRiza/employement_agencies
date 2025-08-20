@@ -28,7 +28,7 @@ const Hero = () => {
       {images.map((img, idx) => (
         <div
           key={idx}
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 bg-fixed ${
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 bg-fixed${
             idx === currentImageIndex ? "opacity-100" : "opacity-0"
           }`}
           style={{
@@ -38,13 +38,13 @@ const Hero = () => {
       ))}
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 bg-black/60"></div>
 
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl px-6">
         <h2 className="text-4xl md:text-6xl font-extrabold mb-6">
           Committed To Excellence <br />
-          <span className="text-blue-400">For 40+ Years</span>
+          <span className="text-blue-600">For 40+ Years</span>
         </h2>
         <p className="text-lg md:text-xl mb-8 text-gray-100">
           With over 40 years of expertise, we are dedicated to providing
