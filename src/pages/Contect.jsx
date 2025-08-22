@@ -1,7 +1,12 @@
 // src/components/Contact.jsx
 import CustomerAIChat from "@/components/CustomerAIChat";
-import React, { useState } from "react";
-import { FaEnvelope, FaPhoneAlt, FaMobileAlt, FaMapMarkerAlt } from "react-icons/fa";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  FaEnvelope,
+  FaPhoneAlt,
+  FaMobileAlt,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,53 +16,92 @@ const Contact = () => {
     subject: "",
     message: "",
   });
-  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [turnstileError, setTurnstileError] = useState(false);
+
+  const containerRef = useRef(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    // Special handling for phone input
-    if (name === "phone" && value !== "" && !value.startsWith("+94")) {
-      setFormData({ ...formData, phone: "+94" + value.replace(/^\+94/, "") });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-
-    // Clear error on change
-    if (errors[name]) {
-      setErrors({ ...errors, [name]: "" });
-    }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
-    }
-    if (!formData.phone.trim() || !formData.phone.startsWith("+94")) {
-      newErrors.phone = "Phone must be a valid Sri Lankan number (+94)";
-    }
-    if (!formData.subject) newErrors.subject = "Please select a subject";
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required";
-    } else if (formData.message.trim().length < 5) {
-      newErrors.message = "Message must be at least 5 characters";
+  // Load Turnstile script
+  useEffect(() => {
+    if (window.turnstile) {
+      setScriptLoaded(true);
+      return;
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+    const script = document.createElement("script");
+    script.src =
+      "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad";
+    script.async = true;
+    script.defer = true;
+
+    script.onload = () => {
+      setScriptLoaded(true);
+    };
+
+    script.onerror = () => {
+      console.error("Failed to load Turnstile script");
+      setTurnstileError(true);
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
+  // Render Turnstile widget
+  useEffect(() => {
+    if (!scriptLoaded || !containerRef.current || loading || success) return;
+
+    // Clear previous widget
+    containerRef.current.innerHTML = "";
+
+    try {
+      window.turnstile.render(containerRef.current, {
+        sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY,
+        callback: (token) => {
+          console.log("Turnstile verified:", token);
+          setIsVerified(true);
+          setTurnstileError(false);
+        },
+        "expired-callback": () => {
+          console.log("Turnstile expired");
+          setIsVerified(false);
+        },
+        "error-callback": (err) => {
+          console.error("Turnstile error:", err);
+          setTurnstileError(true);
+          setIsVerified(false);
+        },
+        theme: "light",
+        size: "normal",
+      });
+      setTurnstileError(false);
+    } catch (err) {
+      console.error("Turnstile render failed:", err);
+      setTurnstileError(true);
+    }
+  }, [scriptLoaded, loading, success]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return;
+    if (!isVerified) {
+      alert("❌ Please complete the 'I'm not a robot' verification.");
+      return;
+    }
+
+    if (loading) return;
 
     setLoading(true);
     setSuccess(false);
@@ -78,12 +122,17 @@ const Contact = () => {
           subject: "",
           message: "",
         });
-        setErrors({});
+        // Reset Turnstile
+        if (window.turnstile && containerRef.current) {
+          window.turnstile.reset(containerRef.current);
+        }
+        setIsVerified(false);
       } else {
-        alert("Failed to send message. Please try again.");
+        const error = await res.json();
+        alert(error.message || "❌ Failed to send message.");
       }
     } catch (err) {
-      alert("Network error. Please check your connection.");
+      alert("❌ Network error. Please check your connection.");
     } finally {
       setLoading(false);
     }
@@ -124,7 +173,9 @@ const Contact = () => {
               <div className="flex items-start gap-4 mb-6">
                 <FaMapMarkerAlt className="text-blue-600 text-2xl mt-1" />
                 <div>
-                  <h4 className="font-semibold text-gray-800 text-lg">Head Office - Narammala</h4>
+                  <h4 className="font-semibold text-gray-800 text-lg">
+                    Head Office - Narammala
+                  </h4>
                   <p className="text-gray-600">
                     No: 01, Colombo Road, Narammala, North Western Province, Sri Lanka
                   </p>
@@ -170,73 +221,67 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-6">
+              Send Us a Message
+            </h3>
 
             {success ? (
-              <div className="bg-green-100 text-green-800 p-4 rounded-lg mb-6 text-center">
+              <div className="bg-blue-100 text-blue-800 p-4 rounded-lg mb-6 text-center">
                 ✅ Thank you! Your message has been sent.
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Name */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Name
+                  </label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.name ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                 </div>
 
-                {/* Email */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                  </label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.email ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
 
-                {/* Phone */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Phone
+                  </label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+94"
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.phone ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
-                  {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                 </div>
 
-                {/* Subject */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Subject
+                  </label>
                   <select
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.subject ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="">Select a subject</option>
                     <option>Visa Inquiry</option>
@@ -245,31 +290,38 @@ const Contact = () => {
                     <option>Complaint/Suggestion</option>
                     <option>Other</option>
                   </select>
-                  {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
                 </div>
 
-                {/* Message */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Message
+                  </label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows="5"
                     required
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors.message ? "border-red-500" : "border-gray-300"
-                    }`}
-                    placeholder="Enter your message (minimum 5 characters)"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   ></textarea>
-                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                </div>
+
+                {/* Turnstile */}
+                <div className="flex justify-center py-3">
+                  <div
+                    ref={containerRef}
+                    style={{
+                      transform: "scale(1)",
+                      transformOrigin: "0 0",
+                    }}
+                  ></div>
                 </div>
 
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold py-3 rounded-lg shadow-md transition transform hover:scale-105 disabled:opacity-70"
+                  disabled={!isVerified || loading}
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold py-3 rounded-lg shadow-md transition transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {loading ? "Sending..." : "Send Message"}
                 </button>
@@ -279,6 +331,7 @@ const Contact = () => {
         </div>
       </div>
 
+      {/* AI Chat Widget */}
       <CustomerAIChat />
     </section>
   );

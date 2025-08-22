@@ -290,7 +290,7 @@ const AdminVacancies = () => {
               <button
                 type="submit"
                 disabled={formLoading}
-                className="flex-1 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 disabled:opacity-70 text-white py-3 rounded-lg font-medium flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-black to-blue-600 hover:from-blue-600 hover:to-black disabled:opacity-70 text-white py-3 rounded-lg font-medium flex items-center justify-center gap-2 cursor-pointer"
               >
                 {formLoading ? (
                   <>

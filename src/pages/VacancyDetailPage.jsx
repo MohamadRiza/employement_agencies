@@ -7,8 +7,10 @@ import {
   FaCalendarAlt,
   FaArrowLeft,
   FaClipboardList,
-  FaCheckCircle,
-  FaExclamationCircle,
+  FaTimes,
+  FaInstagram,
+  FaFacebook,
+  FaLinkedin,
 } from "react-icons/fa";
 import CustomerAIChat from "@/components/CustomerAIChat";
 
@@ -20,6 +22,7 @@ const VacancyDetailPage = () => {
   const [vacancy, setVacancy] = useState(null);
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imageOpen, setImageOpen] = useState(false); // For modal image preview
 
   useEffect(() => {
     const fetchVacancy = async () => {
@@ -107,13 +110,35 @@ const VacancyDetailPage = () => {
         {/* Main Card */}
         <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10">
           {/* Image */}
-          <div className="h-64 md:h-80 overflow-hidden bg-gray-100">
+          <div
+            className="h-64 md:h-80 overflow-hidden bg-gray-100 cursor-pointer"
+            onClick={() => setImageOpen(true)}
+          >
             <img
               src={vacancy.imageUrl}
               alt={vacancy.title}
               className="w-full h-full object-cover hover:scale-105 transition duration-500"
             />
           </div>
+
+          {/* Image Modal */}
+          {imageOpen && (
+            <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+              <div className="relative w-11/12 md:w-4/5 lg:w-3/5 max-h-[80vh]">
+                <button
+                  className="absolute top-2 right-2 text-white text-3xl bg-red-600 rounded-lg opacity-60 hover:opacity-100 cursor-pointer"
+                  onClick={() => setImageOpen(false)}
+                >
+                  <FaTimes />
+                </button>
+                <img
+                  src={vacancy.imageUrl}
+                  alt={vacancy.title}
+                  className="w-full h-full object-contain rounded-lg"
+                />
+              </div>
+            </div>
+          )}
 
           {/* Content */}
           <div className="p-8">
@@ -126,13 +151,14 @@ const VacancyDetailPage = () => {
                 <span>{vacancy.country}</span>
               </div>
               <div className="flex items-center gap-2">
-                <FaDollarSign className="text-green-500" />
+                <FaDollarSign className="text-blue-500" />
                 <span>{vacancy.salary}</span>
               </div>
               <div className="flex items-center gap-2">
                 <FaCalendarAlt className="text-gray-500" />
                 <span>
-                  Posted on: {new Date(vacancy.createdAt).toLocaleDateString("en-US", {
+                  Posted on:{" "}
+                  {new Date(vacancy.createdAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -145,6 +171,29 @@ const VacancyDetailPage = () => {
             <div className="prose max-w-none text-gray-700 leading-relaxed">
               <h3 className="text-xl font-semibold text-gray-800 mb-3">Job Description</h3>
               <p className="whitespace-pre-line">{vacancy.description}</p>
+            </div>
+
+            {/* Social Media & Apply Info */}
+            <div className="mt-10 border-t pt-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Connect With Us</h3>
+              <div className="flex gap-4 mb-6">
+                <a href="https://instagram.com" target="_blank" rel="noreferrer">
+                  <FaInstagram className="text-pink-600 text-3xl hover:scale-110 transition" />
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noreferrer">
+                  <FaFacebook className="text-blue-600 text-3xl hover:scale-110 transition" />
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer">
+                  <FaLinkedin className="text-blue-700 text-3xl hover:scale-110 transition" />
+                </a>
+              </div>
+
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">How to Apply</h3>
+              <ul className="text-gray-700 space-y-2">
+                <li>Email your updated CV to: <span className="font-medium text-blue-600">riza@example.com</span></li>
+                <li>Call us: <span className="font-medium">+123-456-7890</span></li>
+                <li>Or visit our office directly</li>
+              </ul>
             </div>
 
             {/* Apply Button */}
@@ -181,7 +230,7 @@ const VacancyDetailPage = () => {
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold text-gray-800 truncate">{v.title}</h3>
-                    <p className="text-sm text-green-600 mt-1">{v.country}</p>
+                    <p className="text-sm text-blue-600 mt-1">{v.country}</p>
                     <p className="text-sm text-gray-600 mt-1">{v.salary}</p>
                   </div>
                 </div>

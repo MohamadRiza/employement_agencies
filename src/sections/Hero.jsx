@@ -17,23 +17,21 @@ const Hero = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]);
 
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center text-white"
+      className="relative h-screen flex items-center justify-center text-white overflow-hidden"
     >
       {/* Background Image Slider */}
       {images.map((img, idx) => (
         <div
           key={idx}
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 bg-fixed${
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out bg-fixed ${
             idx === currentImageIndex ? "opacity-100" : "opacity-0"
           }`}
-          style={{
-            backgroundImage: `url(${img})`,
-          }}
+          style={{ backgroundImage: `url(${img})` }}
         />
       ))}
 
