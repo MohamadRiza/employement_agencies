@@ -1,8 +1,25 @@
 // src/components/admin/AdminVacancies.jsx
-import React, { useState, useEffect, useRef } from "react";
-import { createVacancy, fetchVacancies, updateVacancy, deleteVacancy } from "@/pages/adminpages/adminServices/api";
-import { FaTrash, FaEdit, FaImage, FaCalendarAlt, FaSpinner, FaSave, FaPlus, FaSearch, FaRobot } from "react-icons/fa";
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import {
+  createVacancy,
+  fetchVacancies,
+  updateVacancy,
+  deleteVacancy,
+} from "@/pages/adminpages/adminServices/api";
+import {
+  FaTrash,
+  FaEdit,
+  FaImage,
+  FaCalendarAlt,
+  FaSpinner,
+  FaSave,
+  FaPlus,
+  FaSearch,
+  FaRobot,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import countryList from "react-select-country-list";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -24,6 +41,9 @@ const AdminVacancies = () => {
 
   const listRef = useRef(null);
   const navigate = useNavigate();
+
+  // Country list
+  const options = useMemo(() => countryList().getData(), []);
 
   // Fetch vacancies
   useEffect(() => {
@@ -148,7 +168,9 @@ const AdminVacancies = () => {
       if (res.ok) {
         const data = await res.json();
         if (editingId) {
-          setVacancies((prev) => prev.map((v) => (v._id === editingId ? data.data : v)));
+          setVacancies((prev) =>
+            prev.map((v) => (v._id === editingId ? data.data : v))
+          );
           setMsg("✅ Vacancy updated successfully!");
         } else {
           setVacancies((prev) => [data.data, ...prev]);
@@ -181,7 +203,12 @@ const AdminVacancies = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("⚠️ Are you sure you want to delete this vacancy? This cannot be undone.")) return;
+    if (
+      !window.confirm(
+        "⚠️ Are you sure you want to delete this vacancy? This cannot be undone."
+      )
+    )
+      return;
     try {
       await deleteVacancy(id);
       setVacancies((prev) => prev.filter((v) => v._id !== id));
@@ -220,10 +247,14 @@ const AdminVacancies = () => {
         {/* Upload/Edit Form */}
         <div className="md:w-1/2 bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-2xl flex flex-col">
           <h3 className="text-xl font-semibold mb-5 text-blue-200 flex items-center gap-2">
-            {editingId ? <FaEdit /> : <FaPlus />} {editingId ? "Edit Vacancy" : "Upload New Vacancy"}
+            {editingId ? <FaEdit /> : <FaPlus />}{" "}
+            {editingId ? "Edit Vacancy" : "Upload New Vacancy"}
           </h3>
 
-          <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4 flex-1 flex flex-col"
+          >
             <input
               type="text"
               placeholder="Job Title"
@@ -232,14 +263,19 @@ const AdminVacancies = () => {
               className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
-            <input
-              type="text"
-              placeholder="Country"
-              value={form.country}
-              onChange={(e) => setForm({ ...form, country: e.target.value })}
-              className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
+
+            {/* Country Dropdown */}
+            <Select
+              options={options}
+              value={
+                form.country ? { value: form.country, label: form.country } : null
+              }
+              onChange={(val) => setForm({ ...form, country: val.label })}
+              placeholder="Search & select a country..."
+              isSearchable
+              className="text-black"
             />
+
             <input
               type="text"
               placeholder="Salary"
@@ -251,7 +287,9 @@ const AdminVacancies = () => {
             <textarea
               placeholder="Job Description"
               value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
               rows="3"
               className="px-4 py-3 bg-white/20 border border-white/30 rounded-lg placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
@@ -261,14 +299,19 @@ const AdminVacancies = () => {
             <button
               type="button"
               onClick={generateDescriptionWithAI}
-              disabled={formLoading || !form.title || !form.country || !form.salary}
+              disabled={
+                formLoading || !form.title || !form.country || !form.salary
+              }
               className="w-full mt-2 text-sm bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:opacity-70 text-white py-2 rounded-lg transition flex items-center justify-center gap-1"
             >
               <FaRobot size={14} /> Generate with AI
             </button>
 
             <div>
-              <label htmlFor="vacancyImage" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="vacancyImage"
+                className="block text-sm font-medium mb-1"
+              >
                 Image
               </label>
               <input
@@ -281,7 +324,11 @@ const AdminVacancies = () => {
             </div>
             {preview && (
               <div className="mt-3">
-                <img src={preview} alt="Preview" className="h-36 object-cover rounded-lg" />
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="h-36 object-cover rounded-lg"
+                />
               </div>
             )}
 
@@ -346,7 +393,9 @@ const AdminVacancies = () => {
               </div>
             ) : filteredVacancies.length === 0 ? (
               <p className="text-gray-400 text-center py-6">
-                {searchTerm ? "No matching vacancies found." : "No vacancies uploaded yet."}
+                {searchTerm
+                  ? "No matching vacancies found."
+                  : "No vacancies uploaded yet."}
               </p>
             ) : (
               filteredVacancies.map((v) => (
@@ -360,9 +409,15 @@ const AdminVacancies = () => {
                     className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
                   />
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-semibold text-white truncate">{v.title}</h4>
-                    <p className="text-green-300">{v.country} • {v.salary}</p>
-                    <p className="text-gray-300 text-sm line-clamp-2">{v.description}</p>
+                    <h4 className="font-semibold text-white truncate">
+                      {v.title}
+                    </h4>
+                    <p className="text-green-300">
+                      {v.country} • {v.salary}
+                    </p>
+                    <p className="text-gray-300 text-sm line-clamp-2">
+                      {v.description}
+                    </p>
                     <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
                       <FaCalendarAlt />
                       {new Date(v.createdAt).toLocaleDateString("en-US", {

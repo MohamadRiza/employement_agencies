@@ -44,6 +44,18 @@ const Sidebar = ({ activeTab, setActiveTab, logout }) => {
           <FaClipboardList />
           Manage Vacancies
         </button>
+
+        <button
+          onClick={() => setActiveTab("applications")}
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
+            activeTab === "applications"
+              ? "bg-green-600 text-white shadow-lg"
+              : "hover:bg-white/20"
+          }`}
+        >
+          <FaUserCog />
+          Applications
+        </button>
       </nav>
 
       <button

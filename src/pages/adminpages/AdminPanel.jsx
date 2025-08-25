@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import Messages from "./Messages";
 import Settings from "./Settings";
 import AdminVacancies from "./AdminVacancies";
+import AdminApplications from "./AdminApplications";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("messages");
@@ -34,6 +35,7 @@ const AdminPanel = () => {
           {activeTab === "messages" && <Messages />}
           {activeTab === "settings" && <Settings />}
           {activeTab === "upload" && <AdminVacancies />}
+          {activeTab === "applications" && <AdminApplications />}
         </div>
       </div>
     </div>
