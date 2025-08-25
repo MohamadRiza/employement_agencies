@@ -15,20 +15,19 @@ const Hero = () => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [images.length]);
 
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center text-white overflow-hidden"
+      className="relative h-[60vh] md:h-screen flex items-center justify-center text-white overflow-hidden"
     >
       {/* Background Image Slider */}
       {images.map((img, idx) => (
         <div
           key={idx}
-          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out bg-fixed ${
+          className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
             idx === currentImageIndex ? "opacity-100" : "opacity-0"
           }`}
           style={{ backgroundImage: `url(${img})` }}
@@ -39,25 +38,25 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/60"></div>
 
       {/* Content */}
-      <div className="relative z-10 text-center max-w-4xl px-6">
-        <h2 className="text-4xl md:text-6xl font-extrabold mb-6">
+      <div className="relative z-10 text-center max-w-3xl px-4 md:px-6">
+        <h2 className="text-2xl sm:text-3xl md:text-6xl font-extrabold mb-4 md:mb-6">
           Committed To Excellence <br />
           <span className="text-blue-600">For 40+ Years</span>
         </h2>
-        <p className="text-lg md:text-xl mb-8 text-gray-100">
+        <p className="text-sm sm:text-base md:text-xl mb-6 md:mb-8 text-gray-100">
           With over 40 years of expertise, we are dedicated to providing
           exceptional service in immigration consulting and global staffing
           solutions.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
           <button
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition cursor-pointer"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 md:px-8 md:py-3 rounded-lg font-semibold transition cursor-pointer text-sm md:text-base"
             onClick={() => navigate("/contect")}
           >
             Start Your Journey
           </button>
           <button
-            className="border border-white text-white hover:bg-white/20 px-8 py-3 rounded-lg font-semibold transition cursor-pointer"
+            className="border border-white text-white hover:bg-white/20 px-6 py-2 md:px-8 md:py-3 rounded-lg font-semibold transition cursor-pointer text-sm md:text-base"
             onClick={() => navigate("/about")}
           >
             Learn More
@@ -66,11 +65,11 @@ const Hero = () => {
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 md:space-x-3">
         {images.map((_, idx) => (
           <button
             key={idx}
-            className={`w-3 h-3 rounded-full transition-all ${
+            className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${
               idx === currentImageIndex ? "bg-white" : "bg-white/40"
             }`}
             onClick={() => setCurrentImageIndex(idx)}
